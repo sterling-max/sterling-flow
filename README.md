@@ -172,6 +172,30 @@ tools = []
 
 ---
 
+## 🔄 Adopting Sterling Flow in Existing Projects
+
+If you already have existing project workflows, custom agent instructions, or local gatekeeping rules, you can onboard your project using this standard prompt:
+
+```markdown
+We are adopting the `sterling-flow` skill as our standard multi-agent orchestration framework.
+
+Please perform an audit to integrate this skill into our existing project workflow:
+
+1. **Audit Existing Workflow & Agent Definitions:**
+   - Inspect our local workflow files, agent configurations, versioning/changelog procedures, and existing role definitions.
+   - Compare them against the formal `sterling-flow` skill definitions.
+
+2. **Propose Integration & Consolidation Plan:**
+   - Identify obsolete, redundant, or conflicting steps/files (e.g. migrating local gate rules to the formal Sentinel protocol).
+   - Show how project-specific requirements (versioning, changelogs, deployments) map to the standardized roles (Architect, Sentinel, Engineer, Ops, Helper).
+
+3. **Gating Rule:**
+   - **Do NOT delete, replace, or modify any existing workflow files or steps yet.**
+   - Present a clear summary of proposed changes and deprecations to the Operator, and wait for explicit approval before modifying the workspace.
+```
+
+---
+
 ## 📄 License
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for details.
