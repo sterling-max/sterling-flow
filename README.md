@@ -37,25 +37,25 @@ Sterling Flow delegates work across 5 specialized subagents, strictly mapped to 
 flowchart TD
     Op(["Operator Request"]) --> Mode{"Mode"}
     
-    Mode -->|Direct 1-on-1 Chat| DirectAgent["Any Agent: Architect / Sentinel / Engineer / Ops"]
+    Mode -->|"Direct 1-on-1 Chat"| DirectAgent["Any Agent: Architect / Sentinel / Engineer / Ops"]
     DirectAgent --> Op
     
-    Mode -->|Structured Pipeline| Triage{"Risk Triage"}
+    Mode -->|"Structured Pipeline"| Triage{"Risk Triage"}
     
-    Triage -->|S0 / S1 Fast-Path| FastEng["Engineer / Ops"]
+    Triage -->|"S0 / S1 Fast-Path"| FastEng["Engineer / Ops"]
     FastEng --> OpReview(["Operator Review"])
     
-    Triage -->|S2 / S3 Full Chain| Arch["Architect (Terra)"]
-    Arch -->|Spec & Risk Context| SentPre["Sentinel Pre-Gate (Terra)"]
-    SentPre -->|Verdict: GO| OpGate{"Operator Approval"}
-    OpGate -->|Approved| EngSol["Engineer (Sol)"]
-    OpGate -->|Reject / Revise| Op
+    Triage -->|"S2 / S3 Full Chain"| Arch["Architect (Terra)"]
+    Arch -->|"Spec & Risk Context"| SentPre["Sentinel Pre-Gate (Terra)"]
+    SentPre -->|"Verdict: GO"| OpGate{"Operator Approval"}
+    OpGate -->|"Approved"| EngSol["Engineer (Sol)"]
+    OpGate -->|"Reject / Revise"| Op
     
-    EngSol -->|Summary + Tests (S3)| SentPost["Sentinel Post-Gate (Terra)"]
-    EngSol -->|Standard S2| OpReview
-    SentPost -->|Post Verdict: GO| OpReview
+    EngSol -->|"S3: Summary + Tests"| SentPost["Sentinel Post-Gate (Terra)"]
+    EngSol -->|"Standard S2"| OpReview
+    SentPost -->|"Post Verdict: GO"| OpReview
     
-    OpReview -->|Explicit Release Command| OpsAgent["Ops Agent (Terra)"]
+    OpReview -->|"Explicit Release Command"| OpsAgent["Ops Agent (Terra)"]
     OpsAgent --> OpFinal(["Operator Final Release Report"])
 ```
 
@@ -88,12 +88,12 @@ Sterling Flow uses a 4-tier risk matrix to prevent token waste:
 
 ### Scenario 1: Quick README Update (`S0`)
 * **Prompt:** `"Update the setup instructions in README.md"`
-* **Flow:** Max → Ops (1 hop, `gpt-5.6-terra` / `gpt-5.6-luna`).
+* **Flow:** Operator → Ops (1 hop, `gpt-5.6-terra` / `gpt-5.6-luna`).
 * **Result:** Ops updates text, formats conventional commit message, and awaits your command to push.
 
 ### Scenario 2: Fix Edge-Case in Date Parser (`S1`)
 * **Prompt:** `"Fix time zone parsing offset bug in dateUtils.ts"`
-* **Flow:** Max → Engineer (`gpt-5.6-terra`, medium effort).
+* **Flow:** Operator → Engineer (`gpt-5.6-terra`, medium effort).
 * **Result:** Engineer fixes logic, authors 2 new regression unit tests, runs test suite, and outputs summary.
 
 ### Scenario 3: Database Schema Migration & Auth Token Refresh (`S3`)
@@ -200,9 +200,9 @@ Please perform an audit to integrate this skill into our existing project workfl
 
 Sterling Flow builds upon architectural patterns and community research in multi-agent orchestration:
 
+- **[Eric Provencher (@pvncher) — Practical multi-agent orchestration in Codex](https://x.com/pvncher/status/2080707291603407077)** — Practical methodology for tiered multi-agent delegation, token economics, anti-sycophancy system prompts, and multi-agent coordination.
 - **[Daniel Vaughan — Codex CLI Multi-Agent Orchestration v2 Complete Guide](https://codex.danielvaughan.com/2026/04/11/codex-cli-multi-agent-orchestration-v2-complete-guide/)** — Patterns for subagent role configuration, tool permission sandboxing, and parent-to-leaf delegation.
 - **[Daniel Vaughan — Agentic Coding with OpenAI Codex CLI](https://danielvaughan.com)** — Foundational methodology for goal-oriented workflows and tiered reasoning.
-- **[Community Multi-Agent Frameworks & Discussions (@pvncher)](https://x.com/pvncher/status/2080707291603407077)** — Practical insights into token economics, anti-sycophancy prompts, and multi-agent coordination.
 
 ---
 
