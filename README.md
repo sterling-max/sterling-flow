@@ -11,7 +11,7 @@
 
 ## 📖 Overview
 
-**Sterling Flow** is a lightweight, role-based orchestration framework designed for multi-agent development workflows across OpenAI Codex environments (CLI, IDEs, desktop apps, and agent SDKs).
+**Sterling Flow** is not a heavy agent framework, complex runtime, or SDK. It is a lightweight, **opinionated steering skill and workflow protocol** designed to guide multi-agent development in OpenAI Codex environments (CLI, IDEs, desktop apps, and agent platforms).
 
 Most AI coding setups suffer from two extremes:
 1. **The Overkill Trap:** Delegating simple 2-line typo fixes or documentation edits to expensive, flagship reasoning models (`Sol`), exhausting subscription token limits rapidly.
@@ -35,28 +35,28 @@ Sterling Flow delegates work across 5 specialized subagents, strictly mapped to 
 
 ```mermaid
 flowchart TD
-    Op([Operator Request]) --> Mode{Mode}
+    Op(["Operator Request"]) --> Mode{"Mode"}
     
-    Mode -->|Direct 1-on-1 Chat| DirectAgent[Any Agent: Architect / Sentinel / Engineer / Ops]
+    Mode -->|Direct 1-on-1 Chat| DirectAgent["Any Agent: Architect / Sentinel / Engineer / Ops"]
     DirectAgent --> Op
     
-    Mode -->|Structured Pipeline| Triage{Risk Triage}
+    Mode -->|Structured Pipeline| Triage{"Risk Triage"}
     
-    Triage -->|S0 / S1 Fast-Path| FastEng[Engineer / Ops]
-    FastEng --> OpReview([Operator Review])
+    Triage -->|S0 / S1 Fast-Path| FastEng["Engineer / Ops"]
+    FastEng --> OpReview(["Operator Review"])
     
-    Triage -->|S2 / S3 Full Chain| Arch[Architect (Terra)]
-    Arch -->|Spec & Risk Context| SentPre[Sentinel Pre-Gate (Terra)]
-    SentPre -->|Verdict: GO| OpGate{Operator Approval}
-    OpGate -->|Approved| EngSol[Engineer (Sol)]
+    Triage -->|S2 / S3 Full Chain| Arch["Architect (Terra)"]
+    Arch -->|Spec & Risk Context| SentPre["Sentinel Pre-Gate (Terra)"]
+    SentPre -->|Verdict: GO| OpGate{"Operator Approval"}
+    OpGate -->|Approved| EngSol["Engineer (Sol)"]
     OpGate -->|Reject / Revise| Op
     
-    EngSol -->|Summary + Tests (S3)| SentPost[Sentinel Post-Gate (Terra)]
+    EngSol -->|Summary + Tests (S3)| SentPost["Sentinel Post-Gate (Terra)"]
     EngSol -->|Standard S2| OpReview
     SentPost -->|Post Verdict: GO| OpReview
     
-    OpReview -->|Explicit Release Command| OpsAgent[Ops Agent (Terra)]
-    OpsAgent --> OpFinal([Operator Final Release Report])
+    OpReview -->|Explicit Release Command| OpsAgent["Ops Agent (Terra)"]
+    OpsAgent --> OpFinal(["Operator Final Release Report"])
 ```
 
 ### Subagent Roles
@@ -193,6 +193,16 @@ Please perform an audit to integrate this skill into our existing project workfl
    - **Do NOT delete, replace, or modify any existing workflow files or steps yet.**
    - Present a clear summary of proposed changes and deprecations to the Operator, and wait for explicit approval before modifying the workspace.
 ```
+
+---
+
+## 📚 References & Inspiration
+
+Sterling Flow builds upon architectural patterns and community research in multi-agent orchestration:
+
+- **[Daniel Vaughan — Codex CLI Multi-Agent Orchestration v2 Complete Guide](https://codex.danielvaughan.com/2026/04/11/codex-cli-multi-agent-orchestration-v2-complete-guide/)** — Patterns for subagent role configuration, tool permission sandboxing, and parent-to-leaf delegation.
+- **[Daniel Vaughan — Agentic Coding with OpenAI Codex CLI](https://danielvaughan.com)** — Foundational methodology for goal-oriented workflows and tiered reasoning.
+- **[Community Multi-Agent Frameworks & Discussions (@pvncher)](https://x.com/pvncher/status/2080707291603407077)** — Practical insights into token economics, anti-sycophancy prompts, and multi-agent coordination.
 
 ---
 

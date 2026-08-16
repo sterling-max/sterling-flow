@@ -61,28 +61,28 @@ Detailed prompts, constraints, and contracts are in [references/agents.md](refer
 
 ```mermaid
 flowchart TD
-    Op([Operator Request]) --> Mode{Mode}
+    Op(["Operator Request"]) --> Mode{"Mode"}
     
-    Mode -->|Direct Chat| DirectAgent[Individual Agent: Architect / Sentinel / Engineer / Ops]
+    Mode -->|Direct Chat| DirectAgent["Individual Agent: Architect / Sentinel / Engineer / Ops"]
     DirectAgent --> Op
     
-    Mode -->|Structured Pipeline| Triage{Risk Triage}
+    Mode -->|Structured Pipeline| Triage{"Risk Triage"}
     
-    Triage -->|S0 / S1 Fast-Path| Eng[Engineer / Ops]
-    Eng --> OpReview([Operator Review & Release Command])
+    Triage -->|S0 / S1 Fast-Path| Eng["Engineer / Ops"]
+    Eng --> OpReview(["Operator Review & Release Command"])
     
-    Triage -->|S2 / S3 Full Chain| Arch[Architect]
-    Arch -->|Spec & Risk Context| SentPre[Sentinel Pre-Gate]
-    SentPre -->|Verdict| OpGate{Operator Approval}
-    OpGate -->|Approved| EngSol[Engineer (Sol)]
+    Triage -->|S2 / S3 Full Chain| Arch["Architect"]
+    Arch -->|Spec & Risk Context| SentPre["Sentinel Pre-Gate"]
+    SentPre -->|Verdict| OpGate{"Operator Approval"}
+    OpGate -->|Approved| EngSol["Engineer (Sol)"]
     OpGate -->|Revise / Reject| Op
     
-    EngSol -->|Summary + Tests (S3)| SentPost[Sentinel Post-Gate]
+    EngSol -->|Summary + Tests (S3)| SentPost["Sentinel Post-Gate"]
     EngSol -->|Standard S2| OpReview
     SentPost -->|Post Verdict| OpReview
     
-    OpReview -->|Explicit Release Command| Ops[Ops Agent]
-    Ops --> OpFinal([Operator Final Summary])
+    OpReview -->|Explicit Release Command| Ops["Ops Agent"]
+    Ops --> OpFinal(["Operator Final Summary"])
 ```
 
 For full Sentinel review rules and escalation triggers, consult [references/sentinel-protocol.md](references/sentinel-protocol.md).
