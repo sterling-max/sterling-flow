@@ -119,17 +119,33 @@ Sterling Flow uses a 4-tier risk matrix to prevent token waste:
 
 ## 🚀 Quickstart & Setup
 
-### 1. Skill Installation (Ready to Use)
-Simply copy the `skills/sterling-flow/` folder into your project's skill directory (e.g. `.agents/skills/sterling-flow` or your global skills path). **The skill works immediately out-of-the-box with no extra configuration needed.**
+### 1. Fast Installation
 
+#### Option A: Global Install (Recommended for Codex CLI & Desktop)
+Install once to make Sterling Flow automatically available across **all** your projects:
+
+**Windows (PowerShell):**
+```powershell
+git clone https://github.com/sterling-max/sterling-flow.git "$HOME\.codex\skills\sterling-flow"
 ```
-skills/sterling-flow/
-├── SKILL.md                          # Main orchestrator rules & risk matrix
-└── references/
-    ├── agents.md                     # Complete prompts, contracts & boundaries
-    ├── sentinel-protocol.md          # Change Risk and Review protocol
-    └── codex-config-example.toml     # Optional CLI configuration reference
+
+**macOS / Linux:**
+```bash
+git clone https://github.com/sterling-max/sterling-flow.git ~/.codex/skills/sterling-flow
 ```
+
+#### Option B: Per-Project Install
+To install Sterling Flow only inside a specific repository:
+
+```bash
+git clone https://github.com/sterling-max/sterling-flow.git .codex/skills/sterling-flow
+```
+
+#### Option C: In-Chat Install
+Inside an active Codex session, simply prompt:
+> *"Please clone https://github.com/sterling-max/sterling-flow into my skills directory and enable Sterling Flow."*
+
+---
 
 ### 2. Optional: Enforce Hard Tool Sandboxing
 If you want the Codex CLI/runtime to enforce hard tool permissions at the process level (e.g. physically disabling file-write tools for Architect and Sentinel), you can optionally add these declarations to your project's `.codex/config.toml`:
