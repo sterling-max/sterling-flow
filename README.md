@@ -119,8 +119,8 @@ Sterling Flow uses a 4-tier risk matrix to prevent token waste:
 
 ## 🚀 Quickstart & Setup
 
-### 1. Skill Installation
-Copy the `skills/sterling-flow/` folder into your project's skill directory (e.g. `.agents/skills/sterling-flow` or your global skill path):
+### 1. Skill Installation (Ready to Use)
+Simply copy the `skills/sterling-flow/` folder into your project's skill directory (e.g. `.agents/skills/sterling-flow` or your global skills path). **The skill works immediately out-of-the-box with no extra configuration needed.**
 
 ```
 skills/sterling-flow/
@@ -128,11 +128,11 @@ skills/sterling-flow/
 └── references/
     ├── agents.md                     # Complete prompts, contracts & boundaries
     ├── sentinel-protocol.md          # Change Risk and Review protocol
-    └── codex-config-example.toml     # Codex CLI multi-agent configuration
+    └── codex-config-example.toml     # Optional CLI configuration reference
 ```
 
-### 2. Codex Configuration Example
-Add the subagent definitions to your project `.codex/config.toml` or `~/.codex/config.toml` (or equivalent Codex agent configuration):
+### 2. Optional: Enforce Hard Tool Sandboxing
+If you want the Codex CLI/runtime to enforce hard tool permissions at the process level (e.g. physically disabling file-write tools for Architect and Sentinel), you can optionally add these declarations to your project's `.codex/config.toml`:
 
 ```toml
 [multi_agent]
