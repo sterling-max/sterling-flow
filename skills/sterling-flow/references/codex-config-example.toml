@@ -1,0 +1,54 @@
+# Sterling Flow — Codex CLI Configuration Example
+# Place in ~/.codex/config.toml or .codex/config.toml in your project root
+
+[multi_agent]
+enabled = true
+
+# Default subagent fallback
+default_subagent_model = "gpt-5.6-terra"
+default_subagent_reasoning_effort = "medium"
+
+# -----------------------------------------------------------------------------
+# Agent: Architect (Scoping & Specification)
+# -----------------------------------------------------------------------------
+[agents.architect]
+description = "Feature-framing and spec drafting agent"
+model = "gpt-5.6-terra"
+model_reasoning_effort = "medium"
+tools = ["read_file", "list_dir", "grep_search"]  # Strictly read-only
+
+# -----------------------------------------------------------------------------
+# Agent: Sentinel (Risk Gating & Pre/Post Review)
+# -----------------------------------------------------------------------------
+[agents.sentinel]
+description = "Independent risk-review and gatekeeping agent"
+model = "gpt-5.6-terra"
+model_reasoning_effort = "high"
+tools = ["read_file", "list_dir", "grep_search"]  # Strictly read-only
+
+# -----------------------------------------------------------------------------
+# Agent: Engineer (Implementation & Testing)
+# -----------------------------------------------------------------------------
+[agents.engineer]
+description = "Implementation, code editing, and test execution agent"
+model = "gpt-5.6-sol"
+model_reasoning_effort = "high"
+# Full edit and execution tools enabled
+
+# -----------------------------------------------------------------------------
+# Agent: Ops (Commit, Deploy & Release)
+# -----------------------------------------------------------------------------
+[agents.ops]
+description = "Commit, push, deployment, and release documentation agent"
+model = "gpt-5.6-terra"
+model_reasoning_effort = "medium"
+tools = ["run_command", "read_file", "write_to_file"]
+
+# -----------------------------------------------------------------------------
+# Agent: Helper (Leaf Text Formatting & Summaries)
+# -----------------------------------------------------------------------------
+[agents.helper]
+description = "Leaf subagent for trivial text transforms and summaries"
+model = "gpt-5.6-luna"
+model_reasoning_effort = "low"
+tools = []  # Pure prompt input/output
