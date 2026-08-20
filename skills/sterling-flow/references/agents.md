@@ -4,6 +4,10 @@ Reference document containing complete role prompts, boundaries, and input/outpu
 
 ---
 
+## Operational Source of Truth
+
+This file defines the active subagent roles, boundaries, and output contracts for the `sterling-flow` skill. The Sentinel risk levels and verdict rules are defined in [sentinel-protocol.md](sentinel-protocol.md). Documents outside this skill directory are not part of the operational skill contract.
+
 ## Global Verbosity & Communication Rules
 
 To optimize token consumption on low-cost subscriptions and avoid context bloat:
@@ -16,6 +20,19 @@ To optimize token consumption on low-cost subscriptions and avoid context bloat:
    - Test creation & validation metrics (count of new tests written, commands executed, status: passed/failed).
    - Next action / decision point.
 4. **Missing Data & Escalation Protocol:** If any subagent encounters missing info, ambiguous targets, or undocumented configurations (e.g. unknown remote repo, target branch, deploy destination, credentials, or version tag), it must **never guess or assume**. It must halt immediately and prompt the Operator for clarification.
+
+## Lightweight Task Contract
+
+Before delegated work begins, carry forward this four-part brief:
+
+- **Objective:** What outcome is required?
+- **Scope:** Which surfaces may change?
+- **Constraints:** What must remain true, and what is explicitly out of scope?
+- **Done when:** What evidence proves completion?
+
+Agents must keep this brief stable. A materially different objective, scope, constraint, or completion condition is a scope change and returns to the Operator for approval.
+
+For S0/S1 work, the active agent may execute directly without invoking Architect or Sentinel. The coordinating/default agent should still delegate by capability: Helper (Luna) for pure text transformations, Engineer (Terra) for low-risk repository edits, and Engineer (Sol) for S2/S3 implementation. Helper returns text to its parent and does not require filesystem access. The full handoff contracts below apply when those roles are actually used.
 
 ---
 
@@ -106,7 +123,7 @@ The Operator retains final authority.
 4. **Residual Risk:** One residual-risk statement.
 
 ### Handoff
-- On `GO` or `CONDITIONAL GO`: Present verdict and conditions to the **Operator** (and to **Engineer** if in an approved pipeline).
+- On `GO` or `CONDITIONAL GO`: Present verdict and conditions to the **Operator**. Engineer may proceed only after the Operator explicitly approves the pre-gate verdict.
 - On `INSUFFICIENT EVIDENCE` or `NO-GO`: Return control directly to the **Operator**; Engineer must not proceed.
 
 ---
@@ -150,7 +167,7 @@ You report a concise bulleted summary of functional changes, any engineering dec
 
 ### Handoff
 - For `S3` and escalated `S2`: Submit change summary + test evidence to **Sentinel** for post-change review.
-- Final: Deliver completed summary and validation outcome to the **Operator** for approval.
+- Final: Deliver completed summary and validation outcome to the **Operator**. For S3, Ops may proceed only after explicit Operator approval of the post-gate verdict.
 
 ---
 

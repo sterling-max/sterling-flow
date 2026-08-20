@@ -11,7 +11,9 @@
 
 ## 📖 Overview
 
-**Sterling Flow** is not a heavy agent framework, complex runtime, or SDK. It is a lightweight, **opinionated steering skill and workflow protocol** designed to guide multi-agent development in OpenAI Codex environments (CLI, IDEs, desktop apps, and agent platforms).
+**Sterling Flow** is not a heavy agent framework, complex runtime, or SDK. It is a lightweight, **opinionated collection of workflow skills and protocols** designed to guide multi-agent development in OpenAI Codex environments (CLI, IDEs, desktop apps, and agent platforms).
+
+This repository is the Sterling Lab workflow monorepo. Each directory under `skills/` is an independently installable skill. The repository currently contains one skill: `sterling-flow`.
 
 Most AI coding setups suffer from two extremes:
 1. **The Overkill Trap:** Delegating simple 2-line typo fixes or documentation edits to expensive, flagship reasoning models (`Sol`), exhausting subscription token limits rapidly.
@@ -121,34 +123,39 @@ Sterling Flow uses a 4-tier risk matrix to prevent token waste:
 
 ### 1. Fast Installation
 
+The repository contains multiple skills, so install the specific skill directory rather than cloning the repository directly into a Codex skill directory.
+
 #### Option A: Global Install (Recommended for Codex CLI & Desktop)
 Install once to make Sterling Flow automatically available across **all** your projects:
 
 **Windows (PowerShell):**
 ```powershell
-git clone https://github.com/sterling-max/sterling-flow.git "$HOME\.codex\skills\sterling-flow"
+git clone https://github.com/sterling-max/sterling-flow.git "$HOME\sterling-flow-repo"
+Copy-Item -Recurse "$HOME\sterling-flow-repo\skills\sterling-flow" "$HOME\.codex\skills\sterling-flow"
 ```
 
 **macOS / Linux:**
 ```bash
-git clone https://github.com/sterling-max/sterling-flow.git ~/.codex/skills/sterling-flow
+git clone https://github.com/sterling-max/sterling-flow.git ~/sterling-flow-repo
+cp -R ~/sterling-flow-repo/skills/sterling-flow ~/.codex/skills/sterling-flow
 ```
 
 #### Option B: Per-Project Install
 To install Sterling Flow only inside a specific repository:
 
 ```bash
-git clone https://github.com/sterling-max/sterling-flow.git .codex/skills/sterling-flow
+git clone https://github.com/sterling-max/sterling-flow.git sterling-flow-repo
+cp -R sterling-flow-repo/skills/sterling-flow .codex/skills/sterling-flow
 ```
 
 #### Option C: In-Chat Install
 Inside an active Codex session, simply prompt:
-> *"Please clone https://github.com/sterling-max/sterling-flow into my skills directory and enable Sterling Flow."*
+> *"Install the `skills/sterling-flow` skill from https://github.com/sterling-max/sterling-flow into my skills directory and enable Sterling Flow."*
 
 ---
 
 ### 2. Optional: Enforce Hard Tool Sandboxing
-If you want the Codex CLI/runtime to enforce hard tool permissions at the process level (e.g. physically disabling file-write tools for Architect and Sentinel), you can optionally add these declarations to your project's `.codex/config.toml`:
+Sterling Flow is designed to self-regulate through its role boundaries and Operator gates. If you want an additional runtime-level guardrail, you can optionally add declarations like these to your project's `.codex/config.toml`. Treat this as a defensive configuration example: support for the section names, model names, and tool names depends on the Codex/runtime version in use, so validate it against that runtime before relying on it.
 
 ```toml
 [multi_agent]
