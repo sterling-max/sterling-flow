@@ -21,6 +21,7 @@ Orchestrates multi-agent development workflows across OpenAI Codex environments 
 5. **Smallest Effective Flow:** Do not spawn a chain for every request. Use direct execution for S0/S1 work; reserve Architect and Sentinel for S2/S3 or explicit Operator requests.
 6. **Task Drift Control:** Every delegated task must preserve the original objective, scope, constraints, and completion criteria. If those change materially, stop and return to the Operator for approval.
 7. **Capability-Based Delegation:** The coordinating/default agent must delegate to the lowest-cost role that can complete the next step. Do not implement work locally merely because the coordinator has write access.
+8. **Delegated Task Identity:** Every delegated task must expose its Sterling role in its task title and opening message. Role identity must not be inferred only from the task objective.
 
 ---
 
@@ -31,6 +32,19 @@ Orchestrates multi-agent development workflows across OpenAI Codex environments 
 | **Sol** | `gpt-5.6-sol` | `medium` / `high` | Normal | **Engineer** (S2/S3 complex implementation & refactoring) |
 | **Terra** | `gpt-5.6-terra` | `medium` | Fast / Normal | **Architect** (Specs), **Sentinel** (Risk Gate), **Ops** (Release), **Engineer** (S0/S1) |
 | **Luna** | `gpt-5.6-luna` | `low` | Fast | **Helper** (Leaf text formatting, summaries, bullet extraction) |
+
+### Canonical delegated task names
+
+Use these labels when creating delegated tasks:
+
+| Display Name | Role | Model | Use |
+|---|---|---|---|
+| `[Architect]` | Architect | Terra | Scope and feature framing |
+| `[Sentinel]` | Sentinel | Terra | Risk and independent review |
+| `[Engineer: Terra]` | Engineer | Terra | S0/S1 implementation |
+| `[Engineer: Sol]` | Engineer | Sol | S2/S3 implementation |
+| `[Ops]` | Ops | Terra | Release and deployment |
+| `[Helper: Luna]` | Helper | Luna | Text-only transformations |
 
 > [!TIP]
 > Use the lowest reasoning effort that reliably meets the task’s quality bar. `medium` is the default balance; use `high` for difficult implementation or review. Increase effort only when representative tasks show a measurable quality benefit. See the [official GPT-5.6 model guidance](https://developers.openai.com/api/docs/guides/latest-model).
@@ -59,6 +73,15 @@ The Operator can request any individual role directly when useful. Roles are opt
 - Commit, push, or deployment: **Ops (Terra)** only after explicit Operator instruction.
 
 The coordinator should pass a compact task brief, not the full conversation, and should stop delegation when another agent would add less value than cost.
+
+When delegating, use the canonical role label in the task title, followed by a short objective. Begin the delegated prompt with:
+
+```text
+Role: [canonical role]
+Objective: [one-line objective]
+```
+
+Example: `[Sentinel] Review settings performance risk`. These labels improve task-list auditability; task icons remain controlled by the Codex UI and are not part of Sterling Flow’s contract.
 
 ### Existing-project onboarding
 

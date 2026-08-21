@@ -34,6 +34,19 @@ Agents must keep this brief stable. A materially different objective, scope, con
 
 For S0/S1 work, the active agent may execute directly without invoking Architect or Sentinel. The coordinating/default agent should still delegate by capability: Helper (Luna) for pure text transformations, Engineer (Terra) for low-risk repository edits, and Engineer (Sol) for S2/S3 implementation. Helper returns text to its parent and does not require filesystem access. The full handoff contracts below apply when those roles are actually used.
 
+## Delegation Naming Contract
+
+Delegated tasks must use canonical role labels so the Codex task list remains auditable:
+
+- `[Architect] Define settings performance scope`
+- `[Sentinel] Review settings performance risk`
+- `[Engineer: Terra] Implement README correction`
+- `[Engineer: Sol] Implement settings feature`
+- `[Helper: Luna] Rewrite README section`
+- `[Ops] Prepare release`
+
+The role label is operational metadata. It does not imply that the Codex UI icon can be controlled by the skill.
+
 ---
 
 ## 1. AGENT: Architect
