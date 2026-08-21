@@ -199,6 +199,8 @@ tools = []
 
 If you already have existing project workflows, custom agent instructions, or local gatekeeping rules, you can onboard your project using this standard prompt:
 
+The installed skill contains the operational onboarding workflow in [`references/onboarding.md`](skills/sterling-flow/references/onboarding.md); the prompt below is a convenient entry point for existing projects.
+
 ```markdown
 We are adopting the `sterling-flow` skill as our standard multi-agent orchestration framework.
 

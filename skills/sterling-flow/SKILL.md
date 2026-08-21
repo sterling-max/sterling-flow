@@ -60,6 +60,10 @@ The Operator can request any individual role directly when useful. Roles are opt
 
 The coordinator should pass a compact task brief, not the full conversation, and should stop delegation when another agent would add less value than cost.
 
+### Existing-project onboarding
+
+When the Operator asks to adopt, onboard, or integrate Sterling Flow into an existing project, read [references/onboarding.md](references/onboarding.md). Treat the audit as S2 workflow work: inspect first, delegate the read-only audit to Architect, use Sentinel to review conflicts and risks, obtain explicit Operator approval, then delegate approved changes to Engineer. Do not modify project workflow files during the audit.
+
 Sterling Flow is runtime-agnostic. If the harness provides native multi-agent coordination, use parallel agents only for genuinely independent workstreams and keep the same task brief and approval gates. Do not require a beta platform feature for the basic workflow; sequential role handoffs remain the portable default. OpenAI’s current guidance also recommends choosing reasoning effort intentionally and benchmarking quality, cost, and latency rather than assuming the highest setting is best.
 
 ## 4. Risk Levels & Routing Paths
